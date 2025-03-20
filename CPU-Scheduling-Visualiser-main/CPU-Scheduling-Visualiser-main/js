@@ -1,0 +1,66 @@
+// Gráfico de calificaciones
+const ctx = document.getElementById('calificacionesChart').getContext('2d');
+const calificacionesChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Matemáticas', 'Español', 'Ciencias', 'Historia'],
+        datasets: [{
+            label: 'Calificaciones',
+            data: [9.5, 8.7, 9.0, 8.9],
+            backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545'],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 10
+            }
+        }
+    }
+});
+
+// Mensajería
+const mensajeForm = document.getElementById('mensajeForm');
+const mensajesList = document.getElementById('mensajesList');
+
+mensajeForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const destinatario = document.getElementById('destinatario').value;
+    const mensaje = document.getElementById('mensaje').value;
+
+    if (mensaje.trim() === '') {
+        alert('Por favor, escribe un mensaje.');
+        return;
+    }
+
+    const li = document.createElement('li');
+    li.className = 'list-group-item';
+    li.innerHTML = `<strong>${destinatario}:</strong> ${mensaje}`;
+    mensajesList.appendChild(li);
+
+    // Limpiar el formulario
+    mensajeForm.reset();
+});
+
+// Pagos
+const pagoForm = document.getElementById('pagoForm');
+const pagoConfirmacion = document.getElementById('pagoConfirmacion');
+
+pagoForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const concepto = document.getElementById('concepto').value;
+    const monto = document.getElementById('monto').value;
+
+    if (monto <= 0) {
+        alert('Por favor, ingresa un monto válido.');
+        return;
+    }
+
+    pagoConfirmacion.textContent = `Pago de ${concepto} por $${monto} realizado con éxito.`;
+    pagoConfirmacion.style.display = 'block';
+
+    // Limpiar el formulario
+    pagoForm.reset();
+});
